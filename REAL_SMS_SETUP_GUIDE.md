@@ -32,12 +32,7 @@ TWILIO_AUTH_TOKEN=your_twilio_auth_token_here
 TWILIO_PHONE_NUMBER=+1234567890
 ```
 
-**Example with real credentials:**
-```env
-TWILIO_ACCOUNT_SID=TWILIO_ACCOUNT_SID
-TWILIO_AUTH_TOKEN=abcdef1234567890abcdef1234567890
-TWILIO_PHONE_NUMBER=+15551234567
-```
+
 
 ### Step 4: Restart Backend Server
 ```bash
@@ -207,12 +202,7 @@ Backend console will show:
 ## 🎯 Production Deployment
 
 ### Environment Variables for Production
-```env
-# Production Twilio Configuration
-TWILIO_ACCOUNT_SID=TWILIO_ACCOUNT_SID
-TWILIO_AUTH_TOKEN=abcdef1234567890abcdef1234567890
-TWILIO_PHONE_NUMBER=+15551234567
-```
+
 
 ### Monitoring & Analytics
 - Twilio Console provides detailed analytics
