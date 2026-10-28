@@ -1,0 +1,129 @@
+﻿/* ═══════════════════════════════════════════════════════
+   ADMIN DASHBOARD — PREMIUM STYLES
+   ═══════════════════════════════════════════════════════ */
+
+/* Sidebar */
+.admin-sidebar-btn {
+  width: 100%; display: flex; align-items: center; gap: 0.75rem;
+  padding: 0.75rem 1.25rem; background: transparent; border: none;
+  cursor: pointer; color: #94a3b8; font-weight: 400; font-size: 0.875rem;
+  text-align: left; border-left: 3px solid transparent; transition: all 0.2s;
+}
+.admin-sidebar-btn:hover { background: rgba(255,255,255,0.08); color: #c7d2fe; }
+.admin-sidebar-btn.active {
+  background: rgba(99,102,241,0.25); color: #a5b4fc;
+  font-weight: 600; border-left-color: #6366f1;
+}
+
+/* Admin table polish */
+.admin-table-wrap { overflow-x: auto; border-radius: 12px; }
+.admin-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+.admin-table thead tr { background: #f9fafb; }
+.admin-table th {
+  padding: 0.75rem 1rem; text-align: left;
+  font-size: 0.72rem; color: #9ca3af; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.6px;
+  border-bottom: 2px solid #f3f4f6;
+}
+.admin-table td {
+  padding: 0.875rem 1rem; border-bottom: 1px solid #f9fafb;
+  font-size: 0.875rem; color: #374151; vertical-align: middle;
+}
+.admin-table tbody tr { transition: background 0.15s; }
+.admin-table tbody tr:hover td { background: #fafafa; }
+.admin-table tbody tr:last-child td { border-bottom: none; }
+
+/* KPI card hover */
+.kpi-card { transition: transform 0.2s, box-shadow 0.2s; }
+.kpi-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+
+/* Verification card */
+.verify-card {
+  background: white; border-radius: 16px; padding: 1.5rem;
+  box-shadow: 0 1px 8px rgba(0,0,0,0.06);
+  display: flex; align-items: center; gap: 1.5rem;
+  flex-wrap: wrap; transition: box-shadow 0.2s;
+  border-left: 4px solid #f59e0b;
+}
+.verify-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+
+/* Support chat */
+.thread-item {
+  padding: 0.875rem 1.25rem; border-bottom: 1px solid #f9fafb;
+  cursor: pointer; transition: background 0.15s;
+}
+.thread-item:hover { background: #f9fafb; }
+.thread-item.active { background: #f5f3ff; border-left: 3px solid #6366f1; }
+
+/* Admin search input */
+.admin-search {
+  padding: 0.5rem 1rem; border: 2px solid #e5e7eb; border-radius: 8px;
+  font-size: 0.875rem; outline: none; transition: border-color 0.2s;
+  background: white; min-width: 200px;
+}
+.admin-search:focus { border-color: #6366f1; }
+
+/* Scrollbar for admin */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #c7d2fe; border-radius: 3px; }
+
+/* Responsive admin */
+@media (max-width: 768px) {
+  .admin-sidebar { width: 64px !important; }
+  .admin-sidebar span { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   ADMIN DASHBOARD — COMPREHENSIVE RESPONSIVE
+   ═══════════════════════════════════════════════════════ */
+
+/* Prevent admin layout overflow */
+.admin-layout { overflow-x: hidden; }
+.admin-main-content { min-width: 0; overflow-x: hidden; }
+
+/* Admin tables always scrollable */
+.admin-table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.admin-table-container table { min-width: 560px; }
+
+@media (max-width: 1024px) {
+  /* Sidebar collapses to icon-only — handled by sidebarOpen state in component */
+  .admin-content-area { padding: 1.25rem !important; }
+
+  /* KPI grid — 2 cols on tablet */
+  .admin-kpi-row { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+@media (max-width: 768px) {
+  /* Admin sidebar — force icon-only */
+  .admin-sidebar { width: 56px !important; }
+  .admin-sidebar .sidebar-label { display: none !important; }
+
+  /* Admin content padding */
+  .admin-content-area { padding: 1rem !important; }
+
+  /* KPI cards — 2 cols */
+  .admin-kpi-row { grid-template-columns: 1fr 1fr !important; gap: 0.875rem !important; }
+
+  /* Support chat — stack */
+  .admin-support-grid { grid-template-columns: 1fr !important; height: auto !important; }
+  .admin-thread-list { height: 200px; border-right: none !important; border-bottom: 1px solid #e5e7eb; }
+
+  /* Ticket split — stack */
+  .admin-ticket-grid { grid-template-columns: 1fr !important; }
+
+  /* Worker/customer tables */
+  .admin-table-container { overflow-x: auto; }
+
+  /* Modal in admin */
+  .admin-modal-content { max-width: 100% !important; border-radius: 16px 16px 0 0 !important; }
+}
+
+@media (max-width: 480px) {
+  /* KPI cards — 2 cols still */
+  .admin-kpi-row { grid-template-columns: 1fr 1fr !important; }
+
+  /* Admin top bar */
+  .admin-topbar { padding: 0.75rem 1rem !important; }
+  .admin-topbar h1 { font-size: 1rem !important; }
+}

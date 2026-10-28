@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Campus Canteen Pre-Order System</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#f4f7fb;
+      color:#1f2937;
+    }
+
+    header{
+      background:linear-gradient(135deg,#0f172a,#2563eb);
+      color:white;
+      padding:18px 7%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      position:sticky;
+      top:0;
+      z-index:1000;
+      box-shadow:0 4px 18px rgba(0,0,0,0.18);
+    }
+
+    .logo{
+      font-size:24px;
+      font-weight:bold;
+      letter-spacing:0.5px;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      margin-left:25px;
+      font-weight:600;
+      font-size:15px;
+    }
+
+    nav a:hover{
+      color:#fde68a;
+    }
+
+    .hero{
+      min-height:85vh;
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:40px;
+      align-items:center;
+      padding:70px 7%;
+      background:linear-gradient(135deg,#e0f2fe,#eff6ff);
+    }
+
+    .hero h1{
+      font-size:48px;
+      line-height:1.15;
+      color:#0f172a;
+      margin-bottom:18px;
+    }
+
+    .hero p{
+      font-size:18px;
+      color:#475569;
+      line-height:1.7;
+      margin-bottom:28px;
+    }
+
+    .hero button{
+      padding:14px 28px;
+      border:none;
+      background:#2563eb;
+      color:white;
+      border-radius:30px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+      box-shadow:0 10px 20px rgba(37,99,235,0.3);
+    }
+
+    .hero button:hover{
+      background:#1d4ed8;
+      transform:translateY(-2px);
+    }
+
+    .hero-card{
+      background:white;
+      border-radius:25px;
+      padding:30px;
+      box-shadow:0 20px 40px rgba(15,23,42,0.12);
+    }
+
+    .hero-card h2{
+      margin-bottom:18px;
+      color:#0f172a;
+    }
+
+    .hero-card .item{
+      background:#f8fafc;
+      margin-bottom:14px;
+      padding:15px;
+      border-radius:15px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      border-left:5px solid #2563eb;
+    }
+
+    section{
+      padding:70px 7%;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:40px;
+    }
+
+    .section-title h2{
+      font-size:34px;
+      color:#0f172a;
+      margin-bottom:10px;
+    }
+
+    .section-title p{
+      color:#64748b;
+      font-size:16px;
+    }
+
+    .features{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:24px;
+    }
+
+    .feature-box{
+      background:white;
+      padding:28px;
+      border-radius:22px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.08);
+      text-align:center;
+    }
+
+    .feature-box span{
+      font-size:40px;
+      display:block;
+      margin-bottom:15px;
+    }
+
+    .feature-box h3{
+      margin-bottom:10px;
+      color:#0f172a;
+    }
+
+    .feature-box p{
+      color:#64748b;
+      line-height:1.6;
+      font-size:14px;
+    }
+
+    .toolbar{
+      background:white;
+      padding:20px;
+      border-radius:20px;
+      display:flex;
+      gap:15px;
+      margin-bottom:30px;
+      box-shadow:0 8px 22px rgba(0,0,0,0.08);
+      flex-wrap:wrap;
+    }
+
+    .toolbar input,
+    .toolbar select{
+      padding:13px 16px;
+      border:1px solid #cbd5e1;
+      border-radius:12px;
+      outline:none;
+      flex:1;
+      min-width:220px;
+      font-size:15px;
+    }
+
+    .menu-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .food-card{
+      background:white;
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:0 10px 25px rgba(0,0,0,0.08);
+      transition:0.3s;
+    }
+
+    .food-card:hover{
+      transform:translateY(-5px);
+    }
+
+    .food-img{
+      height:170px;
+      background:linear-gradient(135deg,#f97316,#facc15);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:58px;
+    }
+
+    .food-content{
+      padding:22px;
+    }
+
+    .food-content h3{
+      font-size:21px;
+      margin-bottom:8px;
+      color:#0f172a;
+    }
+
+    .food-content p{
+      color:#64748b;
+      line-height:1.5;
+      font-size:14px;
+      margin-bottom:13px;
+    }
+
+    .price-row{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:15px;
+    }
+
+    .price{
+      font-size:20px;
+      font-weight:bold;
+      color:#16a34a;
+    }
+
+    .add-btn{
+      padding:10px 16px;
+      border:none;
+      background:#0f172a;
+      color:white;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:bold;
+    }
+
+    .add-btn:hover{
+      background:#2563eb;
+    }
+
+    .cart-layout{
+      display:grid;
+      grid-template-columns:1fr 0.9fr;
+      gap:30px;
+    }
+
+    .cart-box,
+    .form-box,
+    .dashboard-card{
+      background:white;
+      padding:25px;
+      border-radius:24px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .cart-item{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 0;
+      border-bottom:1px solid #e2e8f0;
+    }
+
+    .cart-item button{
+      background:#ef4444;
+      color:white;
+      border:none;
+      padding:7px 10px;
+      border-radius:8px;
+      cursor:pointer;
+    }
+
+    .total{
+      margin-top:20px;
+      padding:16px;
+      background:#ecfdf5;
+      border-radius:14px;
+      font-size:20px;
+      font-weight:bold;
+      color:#15803d;
+      display:flex;
+      justify-content:space-between;
+    }
+
+    .form-box input,
+    .form-box select{
+      width:100%;
+      padding:13px;
+      margin-bottom:15px;
+      border:1px solid #cbd5e1;
+      border-radius:12px;
+      outline:none;
+      font-size:15px;
+    }
+
+    .form-box button{
+      width:100%;
+      padding:14px;
+      border:none;
+      background:#16a34a;
+      color:white;
+      border-radius:14px;
+      font-size:16px;
+      font-weight:bold;
+      cursor:pointer;
+    }
+
+    .form-box button:hover{
+      background:#15803d;
+    }
+
+    .dashboard{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:22px;
+      margin-bottom:30px;
+    }
+
+    .dashboard-card h3{
+      color:#64748b;
+      font-size:15px;
+      margin-bottom:10px;
+    }
+
+    .dashboard-card h2{
+      font-size:32px;
+      color:#0f172a;
+    }
+
+    .orders-table{
+      background:white;
+      border-radius:24px;
+      padding:25px;
+      box-shadow:0 10px 25px rgba(0,0,0,0.08);
+      overflow:auto;
+    }
+
+    table{
+      width:100%;
+      border-collapse:collapse;
+      min-width:700px;
+    }
+
+    th,td{
+      padding:14px;
+      border-bottom:1px solid #e2e8f0;
+      text-align:left;
+      font-size:14px;
+    }
+
+    th{
+      background:#f1f5f9;
+      color:#0f172a;
+    }
+
+    .status{
+      padding:6px 12px;
+      background:#dbeafe;
+      color:#1d4ed8;
+      border-radius:20px;
+      font-weight:bold;
+      font-size:12px;
+    }
+
+    footer{
+      background:#0f172a;
+      color:white;
+      text-align:center;
+      padding:22px;
+      margin-top:40px;
+    }
+
+    .toast{
+      position:fixed;
+      bottom:25px;
+      right:25px;
+      background:#0f172a;
+      color:white;
+      padding:14px 20px;
+      border-radius:14px;
+      display:none;
+      box-shadow:0 10px 25px rgba(0,0,0,0.25);
+      z-index:2000;
+    }
+
+    @media(max-width:850px){
+      .hero{
+        grid-template-columns:1fr;
+        text-align:center;
+      }
+
+      .hero h1{
+        font-size:36px;
+      }
+
+      .cart-layout{
+        grid-template-columns:1fr;
+      }
+
+      header{
+        flex-direction:column;
+        gap:15px;
+      }
+
+      nav a{
+        margin:0 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">CanteenPro</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#features">Features</a>
+      <a href="#menu">Menu</a>
+      <a href="#cart">Order</a>
+      <a href="#admin">Admin</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="home">
+    <div>
+      <h1>Campus Canteen Pre-Order Management System</h1>
+      <p>
+        A simple and modern web application where students can view food items,
+        add items to cart, place orders, and the canteen admin can view order records
+        with total sales and order count.
+      </p>
+      <button onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
+        Order Food Now
+      </button>
+    </div>
+
+    <div class="hero-card">
+      <h2>Today’s Popular Items</h2>
+      <div class="item">
+        <strong>Masala Dosa</strong>
+        <span>₹45</span>
+      </div>
+      <div class="item">
+        <strong>Veg Sandwich</strong>
+        <span>₹35</span>
+      </div>
+      <div class="item">
+        <strong>Cold Coffee</strong>
+        <span>₹50</span>
+      </div>
+      <div class="item">
+        <strong>Paneer Roll</strong>
+        <span>₹70</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="section-title">
+      <h2>System Features</h2>
+      <p>Main modules included in this web development project</p>
+    </div>
+
+    <div class="features">
+      <div class="feature-box">
+        <span>🍽️</span>
+        <h3>Digital Food Menu</h3>
+        <p>Students can view food items with price, category, and description.</p>
+      </div>
+
+      <div class="feature-box">
+        <span>🛒</span>
+        <h3>Cart Management</h3>
+        <p>Students can add food items into cart and remove unwanted items.</p>
+      </div>
+
+      <div class="feature-box">
+        <span>📦</span>
+        <h3>Order Placement</h3>
+        <p>Students can place food orders by entering name, roll number, and pickup time.</p>
+      </div>
+
+      <div class="feature-box">
+        <span>📊</span>
+        <h3>Admin Dashboard</h3>
+        <p>Admin can view total orders, total sales, cart items, and recent order details.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="section-title">
+      <h2>Food Menu</h2>
+      <p>Search and filter food items before ordering</p>
+    </div>
+
+    <div class="toolbar">
+      <input type="text" id="searchInput" placeholder="Search food item..." onkeyup="displayMenu()">
+      <select id="categoryFilter" onchange="displayMenu()">
+        <option value="All">All Categories</option>
+        <option value="Breakfast">Breakfast</option>
+        <option value="Snacks">Snacks</option>
+        <option value="Beverage">Beverage</option>
+        <option value="Lunch">Lunch</option>
+      </select>
+    </div>
+
+    <div class="menu-grid" id="menuGrid"></div>
+  </section>
+
+  <section id="cart">
+    <div class="section-title">
+      <h2>Place Your Order</h2>
+      <p>Check cart items and submit your order</p>
+    </div>
+
+    <div class="cart-layout">
+      <div class="cart-box">
+        <h2>Your Cart</h2>
+        <div id="cartItems"></div>
+        <div class="total">
+          <span>Total Amount</span>
+          <span id="totalAmount">₹0</span>
+        </div>
+      </div>
+
+      <div class="form-box">
+        <h2 style="margin-bottom:18px;">Student Details</h2>
+
+        <input type="text" id="studentName" placeholder="Enter student name">
+        <input type="text" id="rollNo" placeholder="Enter roll number">
+
+        <select id="pickupTime">
+          <option value="">Select Pickup Time</option>
+          <option>10:30 AM</option>
+          <option>11:00 AM</option>
+          <option>12:30 PM</option>
+          <option>01:30 PM</option>
+          <option>03:00 PM</option>
+        </select>
+
+        <select id="paymentMode">
+          <option value="">Select Payment Mode</option>
+          <option>Cash</option>
+          <option>UPI</option>
+          <option>Card</option>
+        </select>
+
+        <button onclick="placeOrder()">Confirm Order</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="admin">
+    <div class="section-title">
+      <h2>Admin Dashboard</h2>
+      <p>Canteen owner can monitor orders and sales</p>
+    </div>
+
+    <div class="dashboard">
+      <div class="dashboard-card">
+        <h3>Total Orders</h3>
+        <h2 id="totalOrders">0</h2>
+      </div>
+
+      <div class="dashboard-card">
+        <h3>Total Sales</h3>
+        <h2 id="totalSales">₹0</h2>
+      </div>
+
+      <div class="dashboard-card">
+        <h3>Current Cart Items</h3>
+        <h2 id="cartCount">0</h2>
+      </div>
+
+      <div class="dashboard-card">
+        <h3>System Status</h3>
+        <h2>Active</h2>
+      </div>
+    </div>
+
+    <div class="orders-table">
+      <h2 style="margin-bottom:20px;">Recent Orders</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Order ID</th>
+            <th>Student</th>
+            <th>Roll No</th>
+            <th>Items</th>
+            <th>Pickup</th>
+            <th>Payment</th>
+            <th>Total</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="ordersTable"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Campus Canteen Pre-Order Management System | Web Development Project</p>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const foods = [
+      {
+        id:1,
+        name:"Masala Dosa",
+        category:"Breakfast",
+        price:45,
+        icon:"🥞",
+        desc:"Crispy dosa served with spicy potato filling and chutney."
+      },
+      {
+        id:2,
+        name:"Poha Plate",
+        category:"Breakfast",
+        price:25,
+        icon:"🍚",
+        desc:"Light and healthy Maharashtrian breakfast with peanuts."
+      },
+      {
+        id:3,
+        name:"Veg Sandwich",
+        category:"Snacks",
+        price:35,
+        icon:"🥪",
+        desc:"Fresh vegetable sandwich with chutney and cheese."
+      },
+      {
+        id:4,
+        name:"Paneer Roll",
+        category:"Snacks",
+        price:70,
+        icon:"🌯",
+        desc:"Soft roll filled with paneer, veggies, and sauces."
+      },
+      {
+        id:5,
+        name:"Cold Coffee",
+        category:"Beverage",
+        price:50,
+        icon:"🥤",
+        desc:"Chilled coffee with creamy taste and smooth texture."
+      },
+      {
+        id:6,
+        name:"Lemon Juice",
+        category:"Beverage",
+        price:20,
+        icon:"🍋",
+        desc:"Refreshing lemon drink suitable for summer days."
+      },
+      {
+        id:7,
+        name:"Veg Thali",
+        category:"Lunch",
+        price:90,
+        icon:"🍱",
+        desc:"Complete lunch plate with roti, rice, sabji, dal, and salad."
+      },
+      {
+        id:8,
+        name:"Fried Rice",
+        category:"Lunch",
+        price:80,
+        icon:"🍛",
+        desc:"Tasty vegetable fried rice served with sauce."
+      }
+    ];
+
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    let orders = JSON.parse(localStorage.getItem("orders")) || [];
+
+    function displayMenu(){
+      const menuGrid = document.getElementById("menuGrid");
+      const searchText = document.getElementById("searchInput").value.toLowerCase();
+      const selectedCategory = document.getElementById("categoryFilter").value;
+
+      let filteredFoods = foods.filter(food => {
+        const matchesSearch = food.name.toLowerCase().includes(searchText);
+        const matchesCategory = selectedCategory === "All" || food.category === selectedCategory;
+        return matchesSearch && matchesCategory;
+      });
+
+      menuGrid.innerHTML = "";
+
+      if(filteredFoods.length === 0){
+        menuGrid.innerHTML = "<p>No food item found.</p>";
+        return;
+      }
+
+      filteredFoods.forEach(food => {
+        menuGrid.innerHTML += `
+          <div class="food-card">
+            <div class="food-img">${food.icon}</div>
+            <div class="food-content">
+              <h3>${food.name}</h3>
+              <p>${food.desc}</p>
+              <small><b>Category:</b> ${food.category}</small>
+              <div class="price-row">
+                <span class="price">₹${food.price}</span>
+                <button class="add-btn" onclick="addToCart(${food.id})">Add to Cart</button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function addToCart(id){
+      const food = foods.find(item => item.id === id);
+      cart.push(food);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      displayCart();
+      updateDashboard();
+      showToast(food.name + " added to cart");
+    }
+
+    function displayCart(){
+      const cartItems = document.getElementById("cartItems");
+      const totalAmount = document.getElementById("totalAmount");
+
+      cartItems.innerHTML = "";
+
+      if(cart.length === 0){
+        cartItems.innerHTML = "<p style='margin-top:18px;color:#64748b;'>Your cart is empty.</p>";
+      }
+
+      cart.forEach((item,index) => {
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <div>
+              <strong>${item.icon} ${item.name}</strong><br>
+              <small>${item.category}</small>
+            </div>
+            <div>
+              <strong>₹${item.price}</strong>
+              <button onclick="removeFromCart(${index})">X</button>
+            </div>
+          </div>
+        `;
+      });
+
+      const total = cart.reduce((sum,item) => sum + item.price, 0);
+      totalAmount.innerText = "₹" + total;
+    }
+
+    function removeFromCart(index){
+      cart.splice(index,1);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      displayCart();
+      updateDashboard();
+      showToast("Item removed from cart");
+    }
+
+    function placeOrder(){
+      const studentName = document.getElementById("studentName").value.trim();
+      const rollNo = document.getElementById("rollNo").value.trim();
+      const pickupTime = document.getElementById("pickupTime").value;
+      const paymentMode = document.getElementById("paymentMode").value;
+
+      if(cart.length === 0){
+        showToast("Please add food items to cart");
+        return;
+      }
+
+      if(studentName === "" || rollNo === "" || pickupTime === "" || paymentMode === ""){
+        showToast("Please fill all student details");
+        return;
+      }
+
+      const total = cart.reduce((sum,item) => sum + item.price, 0);
+
+      const order = {
+        id:"ORD" + Date.now(),
+        studentName:studentName,
+        rollNo:rollNo,
+        items:cart.map(item => item.name).join(", "),
+        pickupTime:pickupTime,
+        paymentMode:paymentMode,
+        total:total,
+        status:"Preparing"
+      };
+
+      orders.unshift(order);
+      localStorage.setItem("orders", JSON.stringify(orders));
+
+      cart = [];
+      localStorage.setItem("cart", JSON.stringify(cart));
+
+      document.getElementById("studentName").value = "";
+      document.getElementById("rollNo").value = "";
+      document.getElementById("pickupTime").value = "";
+      document.getElementById("paymentMode").value = "";
+
+      displayCart();
+      displayOrders();
+      updateDashboard();
+
+      showToast("Order placed successfully");
+      document.getElementById("admin").scrollIntoView({behavior:"smooth"});
+    }
+
+    function displayOrders(){
+      const ordersTable = document.getElementById("ordersTable");
+      ordersTable.innerHTML = "";
+
+      if(orders.length === 0){
+        ordersTable.innerHTML = `
+          <tr>
+            <td colspan="8" style="text-align:center;color:#64748b;">
+              No orders placed yet.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      orders.forEach(order => {
+        ordersTable.innerHTML += `
+          <tr>
+            <td>${order.id}</td>
+            <td>${order.studentName}</td>
+            <td>${order.rollNo}</td>
+            <td>${order.items}</td>
+            <td>${order.pickupTime}</td>
+            <td>${order.paymentMode}</td>
+            <td>₹${order.total}</td>
+            <td><span class="status">${order.status}</span></td>
+          </tr>
+        `;
+      });
+    }
+
+    function updateDashboard(){
+      const totalSales = orders.reduce((sum,order) => sum + order.total, 0);
+
+      document.getElementById("totalOrders").innerText = orders.length;
+      document.getElementById("totalSales").innerText = "₹" + totalSales;
+      document.getElementById("cartCount").innerText = cart.length;
+    }
+
+    function showToast(message){
+      const toast = document.getElementById("toast");
+      toast.innerText = message;
+      toast.style.display = "block";
+
+      setTimeout(() => {
+        toast.style.display = "none";
+      }, 2500);
+    }
+
+    displayMenu();
+    displayCart();
+    displayOrders();
+    updateDashboard();
+  </script>
+
+</body>
+</html>

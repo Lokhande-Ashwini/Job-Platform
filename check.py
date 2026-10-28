@@ -1,0 +1,17 @@
+﻿d = open("frontend/src/pages/Dashboard.js","r",encoding="utf-8").read()
+print("=== Dashboard.js ===")
+print("outer height:100vh:", "height:'100vh'" in d)
+print("sidebar fixed:", "position:'fixed'" in d)
+print("main marginLeft:", "marginLeft:sidebarOpen" in d)
+print("topbar sticky:", "position:'sticky'" in d)
+
+a = open("frontend/src/pages/AdminDashboard.js","r",encoding="utf-8").read()
+print("=== AdminDashboard.js ===")
+print("outer height:100vh:", "height:'100vh'" in a)
+print("sidebar fixed:", "position:'fixed'" in a)
+print("main marginLeft:", "marginLeft:sidebarOpen" in a)
+print("topbar sticky:", "position:'sticky'" in a)
+
+n = open("frontend/src/components/Navbar.js","r",encoding="utf-8").read()
+print("=== Navbar.js ===")
+print("navbar sticky:", "position: 'sticky'" in n)
